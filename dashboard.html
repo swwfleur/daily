@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <style type="text/css">
+    img {
+      object-fit: contain;
+      max-width: 100%;
+    }
+
+    .primary-image {
+      height: 300px;
+    }
+
+    .images {
+      height: 150px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+   <!-- product Modal -->
+    <product-modify-modal
+    :temp-product="tempProduct"
+    :add="add"
+    @get-products="getProducts"></product-modify-modal>
+
+  <!-- product Detial Modal -->
+  <product-detial-modal
+  :temp-product="tempProduct">
+  </product-detial-modal>
+
+  <!-- delete Modal -->
+  <delete-modal
+  :temp-product="tempProduct"
+  @get-products="getProducts">
+</delete-modal>
+
+    <div class="container-fluid">
+      <header class="row border">
+      <h1 class="col py-3 text-success">
+        <span><img src="./sun.svg" alt=""></span>
+        Dairy
+      </h1>
+        <nav class="col">
+          <ul class="nav justify-content-end align-item-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div class="row">
+          <aside class="col-2 bg-warning"></aside>
+          <main class="col-lg-8 p-3">
+          <h2>Product List</h2>
+          <button type="button" class="btn btn-success me-3" @click="checkLogin">Check Login</button>
+          <button type="button" class="btn btn-danger me-3" @click="checkLogout">Logout</button>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-warning" @click="openModel('add')">Add Products</button>
+          <!-- Product List -->
+          <table class="table table-hover mt-3">
+            <thead class="table-light">
+              <tr>
+                <th width="100">Pic</th>
+                <th width="100">Title</th>
+                <th width="100">Original Price</th>
+                <th width="100">Price</th>
+                <th width="100">Available</th>
+                <th width="150">Check</th>
+              </tr>
+            </thead>
+            <tbody v-for="item in products" :key="item.id">
+              <tr>
+                <th>
+                  <img :src="item.imageUrl" alt="">
+                </th>
+                <th scope="row">{{ item.title }}</th>
+                <td>£ {{ item.origin_price }}</td>
+                <td>£ {{ item.price }}</td>
+                <td>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" :id="item.id"
+                      v-model="item.is_enabled" :true-value="1" :false-value="0">
+                    <label class="form-check-label" :for="item.id"></label>
+                    <span class="text-success" v-if="item.is_enabled">Yes</span>
+                    <span class="text-danger" v-else>No</span>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-outline-primary mb-1 w-100" @click="checkProduct(item)">Check The Detials</button>
+                  <button type="button" class="btn btn btn-outline-danger me-lg-1 mb-1 w-100"
+                  @click="openModel('delete',item)">Delete</button>
+                  <button type="button" class="btn btn btn-outline-warning w-100" @click="openModel('edit',item)">Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>{{ Object.keys(products).length }} products in the List</p>
+          <pagination
+          :pages="pagination"
+          @get-product="getProducts"></pagination>
+        </main>
+      </div>
+</div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+  <script type="module" src="./assets/js/dashboard.js"></script>
+
+
+</body>
+
+</html>

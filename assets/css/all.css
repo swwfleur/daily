@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500;1,700&display=swap");
+a {
+  text-decoration: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: url("https://images.pexels.com/photos/3758133/pexels-photo-3758133.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat center center/cover;
+}
+
+.title, .subTitle {
+  font-family: 'EB Garamond', serif;
+}
+
+.title {
+  font-size: 3rem;
+}
+/*# sourceMappingURL=all.css.map */
